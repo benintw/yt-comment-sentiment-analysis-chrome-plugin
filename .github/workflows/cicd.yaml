@@ -88,7 +88,7 @@ jobs:
          
       - name: Stop and remove container if running
         run: |
-         docker ps -q --filter "name=yt_comment_sentiment_container" | grep -q . && docker stop yt_comment_sentiment_container && docker rm -fv yt_comment_sentiment_container
+         docker ps -q --filter "name=yt_comment_sentiment_container" | grep -q . && docker stop yt_comment_sentiment_container && docker rm -fv yt_comment_sentiment_container || true
        
       - name: Run Docker Image to serve users
         run: |
