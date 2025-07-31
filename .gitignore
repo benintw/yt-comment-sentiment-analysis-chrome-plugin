@@ -11,7 +11,7 @@ wheels/
 
 data/*
 /lgbm_model.pkl
-/tfidf_vectorizer.pkl
+# /tfidf_vectorizer.pkl
 /experiment_info.json
 
 reddit_preprocessing.csv
