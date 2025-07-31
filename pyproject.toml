@@ -1,0 +1,21 @@
+[project]
+name = "mlops-yt-comment-analysis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "boto3<=1.39.9",
+    "dvc[s3]>=3.61.0",
+    "flask>=3.1.1",
+    "flask-cors>=6.0.1",
+    "joblib>=1.5.1",
+    "lightgbm>=4.6.0",
+    "matplotlib>=3.10.3",
+    "mlflow>=3.1.4",
+    "nltk>=3.9.1",
+    "numpy>=2.3.2",
+    "pandas>=2.3.1",
+    "seaborn>=0.13.2",
+    "wordcloud>=1.9.4",
+]

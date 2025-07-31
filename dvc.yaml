@@ -1,0 +1,54 @@
+# DVC pipeline for YouTube comment analysis
+
+stages:  # Defines all pipeline stages
+  data_ingestion:  # Stage: Data ingestion (download, clean, split)
+    cmd: uv run python src/data/data_ingestion.py  # Command to execute for this stage
+    deps:  # Dependencies (code/scripts or input files required to run this stage)
+      - src/data/data_ingestion.py
+    params:  # Parameters from params.yaml used in this stage
+      - data_ingestion.test_size
+    outs:  # Outputs produced by this stage (tracked by DVC)
+      - data/raw
+
+  data_preprocessing: # Stage: Data preprocessing
+    cmd: uv run python src/data/data_preprocessing.py
+    deps:
+    - data/raw/train.csv
+    - data/raw/test.csv
+    - src/data/data_preprocessing.py
+    outs:
+    - data/interim
+  
+  model_building: # Stage: Model building
+    cmd: uv run python src/model/model_building.py
+    deps:
+    - data/interim/train_processed.csv
+    - src/model/model_building.py
+    params:
+    - model_building.ngram_range
+    - model_building.max_features
+    - model_building.learning_rate
+    - model_building.max_depth
+    - model_building.n_estimators
+    outs:
+    - lgbm_model.pkl
+    - tfidf_vectorizer.pkl
+  
+  model_evaluation: # Stage: Model evaluation
+    cmd: uv run python src/model/model_evaluation.py
+    deps: 
+    - data/interim/test_processed.csv
+    - data/interim/train_processed.csv
+    - src/model/model_evaluation.py
+    - lgbm_model.pkl
+    - tfidf_vectorizer.pkl
+    outs:
+    - experiment_info.json
+  
+  model_registration: # Stage: Model registration
+    cmd: uv run python src/model/register_model.py
+    deps:
+    - experiment_info.json
+    - src/model/register_model.py
+    
+    

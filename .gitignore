@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+data/*
+/lgbm_model.pkl
+/tfidf_vectorizer.pkl
+/experiment_info.json
+
+reddit_preprocessing.csv
+
+*.log
+*.md
+
+results/*
+notebooks/*
